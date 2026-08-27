@@ -7,17 +7,17 @@
 <title>Pitch a Friend｜素材表</title>
 <style>
   :root {
-    --bg: #faf5ee;        /* 米白 */
-    --bg-2: #f4ecdf;
-    --card: #fffefb;
+    --bg: #fdfbf7;        /* 米白（偏白） */
+    --bg-2: #f7f2ea;
+    --card: #ffffff;
     --ink: #3a2c22;       /* 深咖啡 */
     --ink-soft: #74604f;
     --ink-faint: #a8927f;
     --accent: #cd5d80;    /* 粉紅點綴 */
     --accent-dark: #b34468;
     --accent-soft: #fbe7ee;
-    --line: #eadfd0;
-    --radius: 16px;
+    --line: #ebe3d8;
+    --radius: 0;
   }
 
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -50,7 +50,7 @@
     top: 0;
     z-index: 10;
     padding: 14px 20px 12px;
-    background: rgba(250, 245, 238, 0.92);
+    background: rgba(253, 251, 247, 0.92);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     border-bottom: 1px solid var(--line);
@@ -60,14 +60,14 @@
   .progress-track {
     height: 5px;
     background: var(--line);
-    border-radius: 99px;
+    border-radius: 0;
     overflow: hidden;
   }
   .progress-fill {
     height: 100%;
     width: 0%;
     background: var(--accent);
-    border-radius: 99px;
+    border-radius: 0;
     transition: width .6s cubic-bezier(.22, 1, .36, 1);
   }
   .progress-label {
@@ -193,9 +193,9 @@
     font: inherit;
     font-size: 16px; /* >=16px stops iOS auto-zoom on focus */
     color: var(--ink);
-    background: #fffdf9;
+    background: #ffffff;
     border: 1.5px solid var(--line);
-    border-radius: 11px;
+    border-radius: 0;
     padding: 12px 14px;
     resize: none;
     transition: border-color .15s, box-shadow .15s;
@@ -226,7 +226,7 @@
     font-weight: 600;
     padding: 14px 24px;
     min-height: 50px;
-    border-radius: 12px;
+    border-radius: 0;
     border: 1.5px solid transparent;
     cursor: pointer;
     text-decoration: none;
@@ -272,7 +272,7 @@
   .done-mark {
     width: 54px; height: 54px;
     margin: 0 auto 18px;
-    border-radius: 50%;
+    border-radius: 0;
     background: var(--accent-soft);
     color: var(--accent);
     font-size: 26px;
@@ -291,7 +291,7 @@
     content: counter(s);
     position: absolute; left: 0; top: 1px;
     width: 22px; height: 22px;
-    border-radius: 50%;
+    border-radius: 0;
     background: var(--accent);
     color: #fff;
     font-size: 13px; font-weight: 600;
@@ -337,7 +337,7 @@
     color: #fff;
     font-size: 15px;
     padding: 12px 22px;
-    border-radius: 99px;
+    border-radius: 0;
     opacity: 0;
     pointer-events: none;
     transition: opacity .4s cubic-bezier(.22, 1, .36, 1),
