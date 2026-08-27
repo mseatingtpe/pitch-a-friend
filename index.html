@@ -68,7 +68,7 @@
     width: 0%;
     background: var(--accent);
     border-radius: 99px;
-    transition: width .35s cubic-bezier(.4,0,.2,1);
+    transition: width .6s cubic-bezier(.22, 1, .36, 1);
   }
   .progress-label {
     margin-top: 7px;
@@ -77,16 +77,23 @@
     letter-spacing: .02em;
   }
 
-  /* ---------- screens ---------- */
-  .screen { display: none; animation: rise .35s ease both; }
+  /* ---------- screens：逐項 stagger 進場 ---------- */
+  .screen { display: none; }
   .screen.active { display: block; }
-  @keyframes rise {
-    from { opacity: 0; transform: translateY(10px); }
+  .screen.active > :not(.hero),
+  .screen.active .hero > * {
+    animation: fadeUp .6s cubic-bezier(.22, 1, .36, 1) both;
+    animation-delay: calc(var(--i, 0) * 55ms);
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(14px); }
     to   { opacity: 1; transform: none; }
   }
   @media (prefers-reduced-motion: reduce) {
-    .screen { animation: none; }
-    .progress-fill { transition: none; }
+    *, *::before, *::after {
+      animation: none !important;
+      transition: none !important;
+    }
   }
 
   /* ---------- intro ---------- */
@@ -158,6 +165,12 @@
     border-radius: var(--radius);
     padding: 20px;
     margin: 18px 0;
+    transition: border-color .3s, box-shadow .35s, transform .35s cubic-bezier(.22, 1, .36, 1);
+  }
+  .q:focus-within {
+    border-color: #e9c3d3;
+    box-shadow: 0 8px 28px rgba(58, 44, 34, .08);
+    transform: translateY(-2px);
   }
   .q-label {
     display: block;
@@ -217,11 +230,20 @@
     border: 1.5px solid transparent;
     cursor: pointer;
     text-decoration: none;
-    transition: background .15s, border-color .15s, transform .08s;
+    transition: background .2s, border-color .2s, box-shadow .3s,
+                transform .2s cubic-bezier(.22, 1, .36, 1);
   }
-  .btn:active { transform: scale(.985); }
-  .btn-primary { background: var(--accent); color: #fff; }
-  .btn-primary:hover { background: var(--accent-dark); }
+  .btn:active { transform: translateY(0) scale(.97); }
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+    box-shadow: 0 1px 3px rgba(58, 44, 34, .1);
+  }
+  .btn-primary:hover {
+    background: var(--accent-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(205, 93, 128, .32);
+  }
   .btn-ghost {
     background: transparent;
     color: var(--ink-soft);
@@ -239,6 +261,14 @@
 
   /* ---------- done ---------- */
   .done-head { padding: 48px 0 4px; text-align: center; }
+  .screen.active .done-mark {
+    animation: pop .55s cubic-bezier(.3, 1.4, .5, 1) both;
+    animation-delay: .25s;
+  }
+  @keyframes pop {
+    from { opacity: 0; transform: scale(.4); }
+    to   { opacity: 1; transform: none; }
+  }
   .done-mark {
     width: 54px; height: 54px;
     margin: 0 auto 18px;
@@ -310,7 +340,8 @@
     border-radius: 99px;
     opacity: 0;
     pointer-events: none;
-    transition: opacity .2s, transform .2s;
+    transition: opacity .4s cubic-bezier(.22, 1, .36, 1),
+                transform .4s cubic-bezier(.22, 1, .36, 1);
     z-index: 50;
     max-width: calc(100% - 40px);
     text-align: center;
@@ -695,6 +726,17 @@ function validateStep(si) {
   return true;
 }
 
+function stagger(scr) {
+  // 給進場動畫的 delay 編號：hero 內的元素攤平各自算一項
+  if (!scr) return;
+  const items = [];
+  [...scr.children].forEach(c => {
+    if (c.classList.contains('hero')) items.push(...c.children);
+    else items.push(c);
+  });
+  items.forEach((el, i) => el.style.setProperty('--i', i));
+}
+
 function goTo(n) {
   step = Math.max(-1, Math.min(TOTAL_STEPS, n));
 
@@ -718,6 +760,7 @@ function goTo(n) {
       SECTIONS[step].title + '　·　第 ' + (step + 1) + ' / ' + TOTAL_STEPS + ' 段';
   }
 
+  stagger(document.querySelector('.screen.active'));
   window.scrollTo(0, 0);
   saveDraft();
 }
@@ -834,6 +877,7 @@ function downloadTxt() {
    啟動
    ========================================================================= */
 buildSections();
+stagger($('screen-intro'));
 document.addEventListener('input', onInput);
 
 const draft = loadDraft();
