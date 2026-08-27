@@ -347,10 +347,14 @@
   <section class="screen active" id="screen-intro">
     <div class="hero">
       <p class="eyebrow">Pitch a Friend</p>
-      <h1 id="introTitle">嗨，我要上台把你推銷出去了</h1>
+      <h1 id="introTitle">嗨 Sherry，我要上台把你推銷出去了</h1>
       <p class="lede">
         我要在 Pitch a Friend 的場子上，做一份簡報介紹你給現場的人認識。
         但簡報要好看、要有笑點、要讓人記得住你，素材只能從你身上挖。
+      </p>
+      <p class="lede">
+        有些題目下面我會先寫我對你的印象當例答——<strong>我寫的不一定對，
+        你可以順著補充，也可以直接推翻它，推翻的版本通常更好看。</strong>
       </p>
       <p class="lede">
         所以有這一頁。<strong>25 題，分 5 段，大概 10 到 15 分鐘。</strong>
@@ -443,15 +447,15 @@ const SECTIONS = [
     questions: [
       { id: 'name', type: 'text', required: true,
         label: '我上台的時候要怎麼叫你？',
-        hint: '本名、綽號、英文名都可以——挑你聽到會有反應的那個。' },
+        hint: 'Sherry？中文名？還是朋友都叫你別的？挑你聽到會有反應的那個。' },
       { id: 'age_city', type: 'text',
         label: '年齡，還有你現在住在哪個城市？' },
       { id: 'job', type: 'textarea',
         label: '你的工作是什麼？請用「講給完全不懂的人聽」的方式講一句。',
-        hint: '例：我幫醫院把手寫病歷變成電腦看得懂的東西。台下沒人聽得懂職稱，但聽得懂這種。' },
+        hint: '我知道你是行銷顧問，但台下聽不懂「顧問」在幹嘛。例：「品牌不知道要對誰說話、說什麼的時候，來找我」——用這種方式講一句你的版本。' },
       { id: 'adjectives', type: 'text',
         label: '用三個形容詞形容你自己。',
-        hint: '用頓號隔開就好。不用挑好聽的，挑準的。' },
+        hint: '用頓號隔開就好。我自己會偷偷寫：獨立、強大、thoughtful——你可以同意、可以換掉，也可以嗆我看走眼。' },
       { id: 'looking_for', type: 'text',
         label: '你想被介紹給什麼樣的性別／對象？',
         hint: '這題我會照你寫的講，所以請寫清楚，講錯很尷尬。' }
@@ -463,10 +467,10 @@ const SECTIONS = [
     questions: [
       { id: 'weekend', type: 'textarea',
         label: '一個完全沒有行程的週末，你通常在幹嘛？',
-        hint: '從幾點起床開始寫，寫到晚上。流水帳最好。' },
+        hint: '從幾點起床開始寫，寫到晚上，流水帳最好。我猜裡面至少有一杯好咖啡——猜錯你跟我說。' },
       { id: 'obsession', type: 'textarea',
         label: '有什麼話題是你可以滔滔不絕講 20 分鐘的？',
-        hint: '越冷門越好。這種東西最容易讓台下有人「欸我也是」。' },
+        hint: '咖啡？行銷圈的觀察？還是某個更冷門的東西？越具體越好——這種題最容易讓台下有人「欸我也是」。' },
       { id: 'useless_skill', type: 'text',
         label: '一個「沒什麼用但你超會」的技能。' },
       { id: 'photo_roll', type: 'textarea',
@@ -492,7 +496,7 @@ const SECTIONS = [
         hint: '搞笑版、認真版都可以，你挑一個你願意被講出來的。' },
       { id: 'friends_pitch', type: 'textarea',
         label: '如果你朋友要用一句話把你推銷出去，他們會說什麼？',
-        hint: '可以真的去問一下他們，答案通常比你自己寫的準。' }
+        hint: '可以真的去問一下他們，答案通常比你自己寫的準。我的版本會是：「她是那種你講的話她真的有在聽的人」——看你朋友的版本跟我差多少。' }
     ]
   },
   {
@@ -508,10 +512,10 @@ const SECTIONS = [
         hint: '寫明確一點，這題其實幫你篩掉很多麻煩。' },
       { id: 'first_date', type: 'textarea',
         label: '你心中理想的第一次約會長什麼樣子？',
-        hint: '地點、在做什麼、聊什麼、幾點結束。' },
+        hint: '地點、在做什麼、聊什麼、幾點結束。如果是一家安靜的咖啡店加一場認真的對話，就寫清楚是哪種咖啡店、聊什麼才算認真。' },
       { id: 'green_flag', type: 'textarea',
         label: '你覺得自己能帶給對方什麼？',
-        hint: '你的 green flag。這題不要客氣，客氣了我就沒東西講。' },
+        hint: '你的 green flag。這題不要客氣，客氣了我就沒東西講。提示：在我看來，能跟你認真對話這件事本身就是一個。' },
       { id: 'how_to_win', type: 'textarea',
         label: '你希望對方怎麼追你？什麼舉動會打動你？' }
     ]
