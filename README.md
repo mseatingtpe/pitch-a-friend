@@ -1,7 +1,7 @@
 # Pitch a Friend｜素材收集問答網頁
 
 在 Pitch a Friend 派對上台幫朋友做簡報前，先讓本人自己填的素材表。
-25 題分 5 段，手機優先，填完一鍵複製 / 下載 / mailto 傳回來。
+26 題分 5 段，手機優先，填完一鍵複製 / 下載 / mailto 傳回來。
 
 **網址**：https://mseatingtpe.github.io/pitch-a-friend/
 
