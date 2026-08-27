@@ -206,6 +206,42 @@
     box-shadow: 0 0 0 3px var(--accent-soft);
   }
   textarea { min-height: 92px; overflow: hidden; line-height: 1.65; }
+  .rank { display: grid; gap: 8px; }
+  .rank-opt {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font: inherit;
+    font-size: 16px;
+    text-align: left;
+    color: var(--ink);
+    background: #ffffff;
+    border: 1.5px solid var(--line);
+    border-radius: 0;
+    padding: 12px 14px;
+    cursor: pointer;
+    transition: border-color .2s, background .2s;
+  }
+  .rank-opt::before {
+    content: attr(data-rank);
+    flex: none;
+    width: 24px;
+    height: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink-faint);
+    border: 1.5px solid var(--line);
+    transition: background .2s, border-color .2s, color .2s;
+  }
+  .rank-opt.picked { border-color: var(--accent); background: var(--accent-soft); }
+  .rank-opt.picked::before {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
   .q.invalid input { border-color: var(--accent); }
   .q-error {
     display: none;
@@ -387,7 +423,7 @@
         所以跟你對一下，有些題我先寫了我會怎麼講，你看順不順，不對就改。
       </p>
       <p class="lede">
-        24 題，10 到 15 分鐘。除了第一題都能跳過。
+        25 題，10 到 15 分鐘。除了第一題都能跳過。
         不用寫得漂亮，<strong>細節越多我越好發揮</strong>。
       </p>
     </div>
@@ -476,13 +512,13 @@ const SECTIONS = [
     questions: [
       { id: 'name', type: 'text', required: true,
         label: '我上台的時候要怎麼叫你？',
-        hint: '我打算就叫你 Sherry，你想用別的就寫。' },
+        hint: 'Sherry？' },
       { id: 'age_city', type: 'text',
         label: '年齡，還有你現在住在哪個城市？',
-        hint: '要不要講年齡你決定，你怎麼寫我怎麼講。' },
+        hint: '要不要講年齡你決定' },
       { id: 'job', type: 'textarea',
         label: '你的工作是什麼？請用「講給完全不懂的人聽」的方式講一句。',
-        hint: '我會說你是行銷顧問，但台下不一定懂顧問在幹嘛。你平常怎麼跟人解釋，就怎麼寫。' },
+        hint: '我會說你是行銷顧問，但台下不一定懂顧問在幹嘛' },
       { id: 'adjectives', type: 'text',
         label: '用三個形容詞形容你自己。',
         hint: '我的版本：獨立、強大、thoughtful。哪個不對就換。' }
@@ -497,7 +533,7 @@ const SECTIONS = [
         hint: '從起床寫到睡覺，流水帳就好。' },
       { id: 'obsession', type: 'textarea',
         label: '有什麼話題是你可以滔滔不絕講 20 分鐘的？',
-        hint: '我先猜咖啡。有更冷門的更好。' },
+        hint: '我先猜咖啡。' },
       { id: 'useless_skill', type: 'text',
         label: '一個「沒什麼用但你超會」的技能。' },
       { id: 'photo_roll', type: 'textarea',
@@ -534,12 +570,16 @@ const SECTIONS = [
         label: '過去的感情經驗裡，你學到最重要的一件事是什麼？' },
       { id: 'must_have', type: 'textarea',
         label: '對象的三個必要條件。' },
+      { id: 'ranking', type: 'rank',
+        options: ['good looking', 'good sex', 'good food'],
+        label: '這三個，照重要程度排一下。',
+        hint: '點第一個就是第 1 名，點錯再點一次取消。' },
       { id: 'deal_breaker', type: 'textarea',
         label: '完全不行的雷區是什麼？',
-        hint: '寫明確一點。' },
+        hint: '寫明確一點。AA 男我會擅自幫你排除。' },
       { id: 'first_date', type: 'textarea',
         label: '你心中理想的第一次約會長什麼樣子？',
-        hint: '我猜是咖啡店加一場好的對話，對嗎？寫具體一點，我照這個講。' },
+        hint: '我猜是咖啡店加一場好的對話？我再加油添醋' },
       { id: 'green_flag', type: 'textarea',
         label: '你覺得自己能帶給對方什麼？',
         hint: '不要客氣，寫實話。我先寫一個：跟你講話的時候你是真的在聊。' },
@@ -617,14 +657,30 @@ function buildSections() {
       hint.textContent = q.hint || '';
       box.appendChild(hint);
 
-      const field = q.type === 'text'
-        ? document.createElement('input')
-        : document.createElement('textarea');
-      if (q.type === 'text') field.type = 'text';
-      field.id = 'f-' + q.id;
-      field.name = q.id;
-      field.autocomplete = 'off';
-      box.appendChild(field);
+      if (q.type === 'rank') {
+        const rank = document.createElement('div');
+        rank.className = 'rank';
+        rank.dataset.qid = q.id;
+        q.options.forEach(opt => {
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.className = 'rank-opt';
+          b.dataset.val = opt;
+          b.textContent = opt;
+          b.addEventListener('click', () => toggleRank(q, opt));
+          rank.appendChild(b);
+        });
+        box.appendChild(rank);
+      } else {
+        const field = q.type === 'text'
+          ? document.createElement('input')
+          : document.createElement('textarea');
+        if (q.type === 'text') field.type = 'text';
+        field.id = 'f-' + q.id;
+        field.name = q.id;
+        field.autocomplete = 'off';
+        box.appendChild(field);
+      }
 
       const err = document.createElement('div');
       err.className = 'q-error';
@@ -675,6 +731,28 @@ function onInput(e) {
   saveTimer = setTimeout(saveDraft, 300);
 }
 
+function rankOrder(q) {
+  const v = String(answers[q.id] || '');
+  return v ? v.split(' → ').filter(x => q.options.includes(x)) : [];
+}
+
+function toggleRank(q, opt) {
+  let order = rankOrder(q);
+  order = order.includes(opt) ? order.filter(o => o !== opt) : [...order, opt];
+  answers[q.id] = order.join(' → ');
+  renderRank(q);
+  saveDraft();
+}
+
+function renderRank(q) {
+  const order = rankOrder(q);
+  document.querySelectorAll('.rank[data-qid="' + q.id + '"] .rank-opt').forEach(b => {
+    const i = order.indexOf(b.dataset.val);
+    b.classList.toggle('picked', i >= 0);
+    b.dataset.rank = i >= 0 ? String(i + 1) : '';
+  });
+}
+
 function saveDraft() {
   try {
     // 全空就把 key 刪掉，不要留空殼——否則「清除」後 goTo() 會把它寫回來
@@ -701,6 +779,7 @@ function clearDraft() {
 
 function fillFields() {
   ALL_QUESTIONS.forEach(q => {
+    if (q.type === 'rank') { renderRank(q); return; }
     const el = $('f-' + q.id);
     if (!el) return;
     el.value = answers[q.id] || '';
