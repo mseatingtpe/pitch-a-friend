@@ -380,14 +380,15 @@
       <p class="eyebrow">Pitch a Friend</p>
       <h1 id="introTitle">hi Sherry my friend 🧡</h1>
       <p class="lede">
-        Pitch a Friend 那場，我上台介紹你。內容要從你身上來，所以先回答我這些。
+        Pitch a Friend 那場，我上台介紹你。
       </p>
       <p class="lede">
-        24 題，大概 10 到 15 分鐘。除了第一題都可以跳過。
-        不用寫得漂亮，想到什麼寫什麼，<strong>細節越多越好用</strong>。
+        你的事我知道得差不多，但上台講的要是<strong>你的版本</strong>，不是我的印象。
+        所以跟你對一下，有些題我先寫了我會怎麼講，你看順不順，不對就改。
       </p>
       <p class="lede">
-        有幾題我先寫了我的猜測，不準的話直接改掉。
+        24 題，10 到 15 分鐘。除了第一題都能跳過。
+        不用寫得漂亮，<strong>細節越多我越好發揮</strong>。
       </p>
     </div>
 
@@ -470,20 +471,21 @@ const STORAGE_KEY = 'pitch-a-friend-draft-v1';
    ========================================================================= */
 const SECTIONS = [
   {
-    title: '先讓我認識你',
+    title: '基本的先對一下',
     subtitle: '暖身，快答。',
     questions: [
       { id: 'name', type: 'text', required: true,
         label: '我上台的時候要怎麼叫你？',
-        hint: 'Sherry？還是其他的？我上台就照這個叫。' },
+        hint: '我打算就叫你 Sherry，你想用別的就寫。' },
       { id: 'age_city', type: 'text',
-        label: '年齡，還有你現在住在哪個城市？' },
+        label: '年齡，還有你現在住在哪個城市？',
+        hint: '要不要講年齡你決定，你怎麼寫我怎麼講。' },
       { id: 'job', type: 'textarea',
         label: '你的工作是什麼？請用「講給完全不懂的人聽」的方式講一句。',
-        hint: '你是行銷顧問，但台下的人不一定知道顧問在做什麼，用白話講一次。' },
+        hint: '我會說你是行銷顧問，但台下不一定懂顧問在幹嘛。你平常怎麼跟人解釋，就怎麼寫。' },
       { id: 'adjectives', type: 'text',
         label: '用三個形容詞形容你自己。',
-        hint: '我會寫：獨立、強大、thoughtful。不準就換掉。' }
+        hint: '我的版本：獨立、強大、thoughtful。哪個不對就換。' }
     ]
   },
   {
@@ -495,7 +497,7 @@ const SECTIONS = [
         hint: '從起床寫到睡覺，流水帳就好。' },
       { id: 'obsession', type: 'textarea',
         label: '有什麼話題是你可以滔滔不絕講 20 分鐘的？',
-        hint: '咖啡？行銷？更冷門的更好。' },
+        hint: '我先猜咖啡。有更冷門的更好。' },
       { id: 'useless_skill', type: 'text',
         label: '一個「沒什麼用但你超會」的技能。' },
       { id: 'photo_roll', type: 'textarea',
@@ -537,7 +539,7 @@ const SECTIONS = [
         hint: '寫明確一點。' },
       { id: 'first_date', type: 'textarea',
         label: '你心中理想的第一次約會長什麼樣子？',
-        hint: '地點、做什麼、聊什麼。如果是咖啡店，寫哪種咖啡店、聊什麼。' },
+        hint: '我猜是咖啡店加一場好的對話，對嗎？寫具體一點，我照這個講。' },
       { id: 'green_flag', type: 'textarea',
         label: '你覺得自己能帶給對方什麼？',
         hint: '不要客氣，寫實話。我先寫一個：跟你講話的時候你是真的在聊。' },
