@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Pitch a Friend｜素材表</title>
+<style>
+  :root {
+    --bg: #fdf6f0;
+    --bg-2: #f7ece6;
+    --card: #ffffff;
+    --ink: #2c2320;
+    --ink-soft: #6f605a;
+    --ink-faint: #a2938c;
+    --accent: #d8574b;
+    --accent-dark: #b6423a;
+    --accent-soft: #fce8e4;
+    --line: #ece0d9;
+    --radius: 16px;
+  }
+
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    background: linear-gradient(170deg, var(--bg) 0%, var(--bg-2) 100%);
+    background-attachment: fixed;
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC",
+                 "Noto Sans TC", "Microsoft JhengHei", "Helvetica Neue", sans-serif;
+    font-size: 17px;
+    line-height: 1.7;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  .wrap {
+    max-width: 620px;
+    margin: 0 auto;
+    padding: 0 20px calc(48px + env(safe-area-inset-bottom));
+  }
+
+  /* ---------- progress ---------- */
+  .progress-shell {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    padding: 14px 20px 12px;
+    background: rgba(253, 246, 240, 0.92);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .progress-shell[hidden] { display: none; }
+  .progress-inner { max-width: 620px; margin: 0 auto; }
+  .progress-track {
+    height: 5px;
+    background: var(--line);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--accent);
+    border-radius: 99px;
+    transition: width .35s cubic-bezier(.4,0,.2,1);
+  }
+  .progress-label {
+    margin-top: 7px;
+    font-size: 13px;
+    color: var(--ink-faint);
+    letter-spacing: .02em;
+  }
+
+  /* ---------- screens ---------- */
+  .screen { display: none; animation: rise .35s ease both; }
+  .screen.active { display: block; }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .screen { animation: none; }
+    .progress-fill { transition: none; }
+  }
+
+  /* ---------- intro ---------- */
+  .hero { padding: 56px 0 8px; }
+  .eyebrow {
+    font-size: 13px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+    margin: 0 0 14px;
+  }
+  h1 {
+    font-size: 30px;
+    line-height: 1.35;
+    margin: 0 0 20px;
+    letter-spacing: -.01em;
+  }
+  .lede { color: var(--ink-soft); margin: 0 0 18px; }
+  .lede strong { color: var(--ink); }
+
+  .note {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    margin: 26px 0;
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+  }
+  .note b { color: var(--ink); }
+  .note-title {
+    display: block;
+    font-size: 13px;
+    letter-spacing: .06em;
+    color: var(--ink-faint);
+    margin-bottom: 6px;
+  }
+
+  .resume {
+    background: var(--accent-soft);
+    border: 1px solid #f3ccc5;
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    margin: 26px 0;
+    font-size: 15px;
+    color: var(--ink);
+  }
+  .resume[hidden] { display: none; }
+  .resume-actions { display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
+
+  /* ---------- section head ---------- */
+  .sec-head { padding: 32px 0 4px; }
+  .sec-num {
+    font-size: 13px;
+    letter-spacing: .16em;
+    color: var(--accent);
+    font-weight: 600;
+    margin: 0 0 8px;
+  }
+  h2 { font-size: 24px; margin: 0 0 8px; letter-spacing: -.01em; }
+  .sec-sub { color: var(--ink-soft); font-size: 15px; margin: 0; }
+
+  /* ---------- questions ---------- */
+  .q {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin: 18px 0;
+  }
+  .q-label {
+    display: block;
+    font-weight: 600;
+    line-height: 1.55;
+    margin-bottom: 4px;
+  }
+  .q-label .req { color: var(--accent); font-weight: 400; }
+  .q-hint {
+    display: block;
+    font-size: 14px;
+    color: var(--ink-faint);
+    line-height: 1.6;
+    margin-bottom: 12px;
+  }
+  .q-hint:empty { display: none; margin: 0; }
+
+  input[type="text"], textarea {
+    width: 100%;
+    font: inherit;
+    font-size: 16px; /* >=16px stops iOS auto-zoom on focus */
+    color: var(--ink);
+    background: #fffdfc;
+    border: 1.5px solid var(--line);
+    border-radius: 11px;
+    padding: 12px 14px;
+    resize: none;
+    transition: border-color .15s, box-shadow .15s;
+  }
+  input[type="text"]:focus, textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+  textarea { min-height: 92px; overflow: hidden; line-height: 1.65; }
+  .q.invalid input { border-color: var(--accent); }
+  .q-error {
+    display: none;
+    color: var(--accent);
+    font-size: 14px;
+    margin-top: 8px;
+  }
+  .q.invalid .q-error { display: block; }
+
+  /* ---------- buttons ---------- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font: inherit;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 14px 24px;
+    min-height: 50px;
+    border-radius: 12px;
+    border: 1.5px solid transparent;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background .15s, border-color .15s, transform .08s;
+  }
+  .btn:active { transform: scale(.985); }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: var(--accent-dark); }
+  .btn-ghost {
+    background: transparent;
+    color: var(--ink-soft);
+    border-color: var(--line);
+  }
+  .btn-ghost:hover { border-color: var(--ink-faint); color: var(--ink); }
+  .btn-block { width: 100%; }
+
+  .nav {
+    display: flex;
+    gap: 12px;
+    margin-top: 28px;
+  }
+  .nav .btn-primary { flex: 1; }
+
+  /* ---------- done ---------- */
+  .done-head { padding: 48px 0 4px; text-align: center; }
+  .done-mark {
+    width: 54px; height: 54px;
+    margin: 0 auto 18px;
+    border-radius: 50%;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 26px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .steps { counter-reset: s; margin: 0 0 8px; padding: 0; list-style: none; }
+  .steps li {
+    counter-increment: s;
+    position: relative;
+    padding-left: 34px;
+    margin-bottom: 12px;
+    color: var(--ink-soft);
+    font-size: 15px;
+  }
+  .steps li::before {
+    content: counter(s);
+    position: absolute; left: 0; top: 1px;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    font-size: 13px; font-weight: 600;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .steps li b { color: var(--ink); }
+
+  .out-actions { display: grid; gap: 10px; margin: 22px 0 10px; }
+  .out-caption {
+    font-size: 14px;
+    color: var(--ink-faint);
+    line-height: 1.6;
+    margin: 0 0 26px;
+  }
+  #preview {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 18px;
+    max-height: 340px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: pre-wrap;
+    word-break: break-word;
+    font-size: 14px;
+    line-height: 1.75;
+    color: var(--ink-soft);
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+  }
+  .preview-label {
+    font-size: 13px;
+    letter-spacing: .06em;
+    color: var(--ink-faint);
+    margin: 0 0 8px;
+  }
+
+  .toast {
+    position: fixed;
+    left: 50%;
+    bottom: calc(28px + env(safe-area-inset-bottom));
+    transform: translate(-50%, 20px);
+    background: var(--ink);
+    color: #fff;
+    font-size: 15px;
+    padding: 12px 22px;
+    border-radius: 99px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .2s, transform .2s;
+    z-index: 50;
+    max-width: calc(100% - 40px);
+    text-align: center;
+  }
+  .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+  footer {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    font-size: 13px;
+    color: var(--ink-faint);
+    text-align: center;
+  }
+  footer button {
+    background: none; border: none; padding: 0;
+    font: inherit; color: var(--ink-faint);
+    text-decoration: underline; cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-shell" id="progressShell" hidden>
+  <div class="progress-inner">
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="progress-label" id="progressLabel"></div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- ===== intro ===== -->
+  <section class="screen active" id="screen-intro">
+    <div class="hero">
+      <p class="eyebrow">Pitch a Friend</p>
+      <h1 id="introTitle">嗨，我要上台把你推銷出去了</h1>
+      <p class="lede">
+        我要在 Pitch a Friend 的場子上，做一份簡報介紹你給現場的人認識。
+        但簡報要好看、要有笑點、要讓人記得住你，素材只能從你身上挖。
+      </p>
+      <p class="lede">
+        所以有這一頁。<strong>25 題，分 5 段，大概 10 到 15 分鐘。</strong>
+        除了第一題以外全部可以跳過，想到什麼寫什麼，不用修辭、不用完整句子——
+        <strong>越具體、越像廢話的細節，做成簡報越好笑。</strong>
+      </p>
+    </div>
+
+    <div class="resume" id="resumeBox" hidden>
+      <b>你上次填到一半。</b><br>
+      要從上次停下來的地方繼續嗎？
+      <div class="resume-actions">
+        <button class="btn btn-primary" id="btnResume" type="button">繼續填</button>
+        <button class="btn btn-ghost" id="btnRestart" type="button">重新開始</button>
+      </div>
+    </div>
+
+    <div class="note">
+      <span class="note-title">關於隱私</span>
+      這一頁<b>不會把你的答案送到任何伺服器</b>，沒有後台、沒有資料庫、沒有追蹤。
+      答案只存在你自己的手機瀏覽器裡（所以填一半關掉也還在）。
+      <b>只有在你按下最後的「複製」或「寄出」，資料才會離開你的手機。</b>
+      填完覺得後悔，按最下面的「清除」就什麼都不剩了。
+    </div>
+
+    <button class="btn btn-primary btn-block" id="btnStart" type="button">開始填 →</button>
+  </section>
+
+  <!-- ===== question sections (rendered by JS) ===== -->
+  <div id="sections"></div>
+
+  <!-- ===== done ===== -->
+  <section class="screen" id="screen-done">
+    <div class="done-head">
+      <div class="done-mark">✓</div>
+      <h2>填完了，謝謝你</h2>
+      <p class="sec-sub">最後一步：把下面這份東西傳給我。</p>
+    </div>
+
+    <div class="out-actions">
+      <button class="btn btn-primary btn-block" id="btnCopy" type="button">📋 一鍵複製全部</button>
+      <button class="btn btn-ghost btn-block" id="btnDownload" type="button">⬇️ 下載成 .txt 檔</button>
+      <a class="btn btn-ghost btn-block" id="btnMail" href="#">✉️ 用 Email 寄給我</a>
+    </div>
+    <p class="out-caption">
+      最推薦<b>「複製」</b>，貼到 LINE / IG / Telegram 傳給我就好。<br>
+      如果複製沒反應（有些手機瀏覽器會擋），就用<b>下載</b>，最保險。<br>
+      用 Email 寄的話，內容太長時有些信箱 App 會把後面截掉——寄出前記得往下滑，確認最後一題還在。
+    </p>
+
+    <div class="note">
+      <span class="note-title">還有一件事</span>
+      請另外用 LINE 或 IG 傳 <b>3 到 5 張照片</b>給我：<br>
+      一張臉清楚的、一張你在做喜歡的事的、一張朋友幫你偷拍的（這種通常最好用）。
+    </div>
+
+    <p class="preview-label">以下是你要傳給我的內容</p>
+    <div id="preview"></div>
+
+    <div class="nav">
+      <button class="btn btn-ghost" id="btnBackEdit" type="button">← 回去改</button>
+    </div>
+
+    <footer>
+      填完不想留紀錄？<button type="button" id="btnClear">清除這台裝置上的所有答案</button>
+    </footer>
+  </section>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* =========================================================================
+   設定：要改收件人改這兩行就好
+   ========================================================================= */
+const RECIPIENT_EMAIL = 'ms.eatingtpe@gmail.com';
+const RECIPIENT_NAME  = 'Sunny';
+
+const STORAGE_KEY = 'pitch-a-friend-draft-v1';
+
+/* =========================================================================
+   題目：改題目只要動這個陣列，不用碰下面任何邏輯
+   type: 'text' | 'textarea'
+   ========================================================================= */
+const SECTIONS = [
+  {
+    title: '先讓我認識你',
+    subtitle: '暖身題，快快答就好，不用想太久。',
+    questions: [
+      { id: 'name', type: 'text', required: true,
+        label: '我上台的時候要怎麼叫你？',
+        hint: '本名、綽號、英文名都可以——挑你聽到會有反應的那個。' },
+      { id: 'age_city', type: 'text',
+        label: '年齡，還有你現在住在哪個城市？' },
+      { id: 'job', type: 'textarea',
+        label: '你的工作是什麼？請用「講給完全不懂的人聽」的方式講一句。',
+        hint: '例：我幫醫院把手寫病歷變成電腦看得懂的東西。台下沒人聽得懂職稱，但聽得懂這種。' },
+      { id: 'adjectives', type: 'text',
+        label: '用三個形容詞形容你自己。',
+        hint: '用頓號隔開就好。不用挑好聽的，挑準的。' },
+      { id: 'looking_for', type: 'text',
+        label: '你想被介紹給什麼樣的性別／對象？',
+        hint: '這題我會照你寫的講，所以請寫清楚，講錯很尷尬。' }
+    ]
+  },
+  {
+    title: '你平常是什麼樣子',
+    subtitle: '這段是要讓台下的人腦中出現畫面，而不是履歷。',
+    questions: [
+      { id: 'weekend', type: 'textarea',
+        label: '一個完全沒有行程的週末，你通常在幹嘛？',
+        hint: '從幾點起床開始寫，寫到晚上。流水帳最好。' },
+      { id: 'obsession', type: 'textarea',
+        label: '有什麼話題是你可以滔滔不絕講 20 分鐘的？',
+        hint: '越冷門越好。這種東西最容易讓台下有人「欸我也是」。' },
+      { id: 'useless_skill', type: 'text',
+        label: '一個「沒什麼用但你超會」的技能。' },
+      { id: 'photo_roll', type: 'textarea',
+        label: '打開手機相簿，最近的三張照片分別是什麼？',
+        hint: '不用傳照片，用文字描述就好。這題通常會挖到你自己都沒想到的東西。' },
+      { id: 'last_laugh', type: 'textarea',
+        label: '最近一次笑到不行是為了什麼？' }
+    ]
+  },
+  {
+    title: '名場面',
+    subtitle: '這段是整份簡報的核心。請盡量寫長。',
+    questions: [
+      { id: 'friends_tease', type: 'textarea',
+        label: '朋友最常拿出來笑你的一件事是什麼？' },
+      { id: 'surprise', type: 'textarea',
+        label: '一件認識你之後才會發現、跟第一印象完全不一樣的事。' },
+      { id: 'story', type: 'textarea',
+        label: '講一個能證明「你就是這種人」的具體小故事。',
+        hint: '越具體越好——什麼時候、在哪、誰在場、誰說了什麼。這題大概會變成簡報裡最精彩的一頁，值得多花五分鐘。' },
+      { id: 'regret', type: 'textarea',
+        label: '有沒有一個你很想收回的決定？',
+        hint: '搞笑版、認真版都可以，你挑一個你願意被講出來的。' },
+      { id: 'friends_pitch', type: 'textarea',
+        label: '如果你朋友要用一句話把你推銷出去，他們會說什麼？',
+        hint: '可以真的去問一下他們，答案通常比你自己寫的準。' }
+    ]
+  },
+  {
+    title: '感情這件事',
+    subtitle: '這段我會挑著講，不會全部搬上台。',
+    questions: [
+      { id: 'lesson', type: 'textarea',
+        label: '過去的感情經驗裡，你學到最重要的一件事是什麼？' },
+      { id: 'must_have', type: 'textarea',
+        label: '對象的三個必要條件。' },
+      { id: 'deal_breaker', type: 'textarea',
+        label: '完全不行的雷區是什麼？',
+        hint: '寫明確一點，這題其實幫你篩掉很多麻煩。' },
+      { id: 'first_date', type: 'textarea',
+        label: '你心中理想的第一次約會長什麼樣子？',
+        hint: '地點、在做什麼、聊什麼、幾點結束。' },
+      { id: 'green_flag', type: 'textarea',
+        label: '你覺得自己能帶給對方什麼？',
+        hint: '你的 green flag。這題不要客氣，客氣了我就沒東西講。' },
+      { id: 'how_to_win', type: 'textarea',
+        label: '你希望對方怎麼追你？什麼舉動會打動你？' }
+    ]
+  },
+  {
+    title: '收尾，還有地雷確認',
+    subtitle: '最後五題，其中一題非常重要。',
+    questions: [
+      { id: 'life_stage', type: 'textarea',
+        label: '你現在在人生的什麼階段？未來一年想做成什麼事？' },
+      { id: 'closing', type: 'textarea',
+        label: '如果最後有 10 秒鐘可以對台下說一句話，你想說什麼？' },
+      { id: 'taboo', type: 'textarea',
+        label: '有什麼是絕對不能講的？',
+        hint: '前任、工作、家人、身材、年齡、健康⋯⋯任何你不想被搬上台的，通通寫在這裡。這題最重要，寫得越清楚我越不會踩雷。沒有的話就寫「沒有」。' },
+      { id: 'contact', type: 'textarea',
+        label: '結束後聯絡方式要怎麼給？',
+        hint: '現場掃 IG QR code／由我轉交／其他做法，你決定。' }
+    ]
+  }
+];
+
+/* =========================================================================
+   狀態
+   ========================================================================= */
+const ALL_QUESTIONS = SECTIONS.flatMap(s => s.questions);
+const TOTAL_STEPS = SECTIONS.length;
+
+let answers = {};
+let step = -1; // -1 = intro, 0..TOTAL_STEPS-1 = sections, TOTAL_STEPS = done
+
+const $ = id => document.getElementById(id);
+const sectionsRoot = $('sections');
+
+/* =========================================================================
+   建立畫面
+   ========================================================================= */
+function buildSections() {
+  SECTIONS.forEach((sec, si) => {
+    const el = document.createElement('section');
+    el.className = 'screen';
+    el.id = 'screen-' + si;
+
+    const head = document.createElement('div');
+    head.className = 'sec-head';
+    head.innerHTML =
+      '<p class="sec-num">第 ' + (si + 1) + ' 段 ／ 共 ' + TOTAL_STEPS + ' 段</p>' +
+      '<h2></h2><p class="sec-sub"></p>';
+    head.querySelector('h2').textContent = sec.title;
+    head.querySelector('.sec-sub').textContent = sec.subtitle;
+    el.appendChild(head);
+
+    sec.questions.forEach(q => {
+      const box = document.createElement('div');
+      box.className = 'q';
+      box.dataset.qid = q.id;
+
+      const label = document.createElement('label');
+      label.className = 'q-label';
+      label.setAttribute('for', 'f-' + q.id);
+      label.textContent = q.label;
+      if (q.required) {
+        const r = document.createElement('span');
+        r.className = 'req';
+        r.textContent = ' ＊必填';
+        label.appendChild(r);
+      }
+      box.appendChild(label);
+
+      const hint = document.createElement('span');
+      hint.className = 'q-hint';
+      hint.textContent = q.hint || '';
+      box.appendChild(hint);
+
+      const field = q.type === 'text'
+        ? document.createElement('input')
+        : document.createElement('textarea');
+      if (q.type === 'text') field.type = 'text';
+      field.id = 'f-' + q.id;
+      field.name = q.id;
+      field.autocomplete = 'off';
+      box.appendChild(field);
+
+      const err = document.createElement('div');
+      err.className = 'q-error';
+      err.textContent = '這題要填喔，不然我上台不知道要叫你什麼。';
+      box.appendChild(err);
+
+      el.appendChild(box);
+    });
+
+    const nav = document.createElement('div');
+    nav.className = 'nav';
+    const back = document.createElement('button');
+    back.type = 'button';
+    back.className = 'btn btn-ghost';
+    back.textContent = '← 上一步';
+    back.addEventListener('click', () => goTo(step - 1));
+    const next = document.createElement('button');
+    next.type = 'button';
+    next.className = 'btn btn-primary';
+    next.textContent = si === TOTAL_STEPS - 1 ? '完成，產生內容 →' : '下一步 →';
+    next.addEventListener('click', () => { if (validateStep(si)) goTo(step + 1); });
+    nav.appendChild(back);
+    nav.appendChild(next);
+    el.appendChild(nav);
+
+    sectionsRoot.appendChild(el);
+  });
+}
+
+/* =========================================================================
+   輸入處理：自動長高 + debounce 存草稿
+   ========================================================================= */
+let saveTimer = null;
+
+function autoGrow(el) {
+  if (el.tagName !== 'TEXTAREA') return;
+  el.style.height = 'auto';
+  el.style.height = el.scrollHeight + 'px';
+}
+
+function onInput(e) {
+  const el = e.target;
+  if (!el.name || !(el.tagName === 'TEXTAREA' || el.type === 'text')) return;
+  answers[el.name] = el.value;
+  autoGrow(el);
+  el.closest('.q')?.classList.remove('invalid');
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(saveDraft, 300);
+}
+
+function saveDraft() {
+  try {
+    // 全空就把 key 刪掉，不要留空殼——否則「清除」後 goTo() 會把它寫回來
+    const hasContent = Object.values(answers).some(v => String(v || '').trim());
+    if (!hasContent) { localStorage.removeItem(STORAGE_KEY); return; }
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ answers, step }));
+  } catch (_) { /* 無痕模式等情況：存不了就算了，不擋填寫 */ }
+}
+
+function loadDraft() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return null;
+    const d = JSON.parse(raw);
+    if (!d || typeof d.answers !== 'object' || d.answers === null) return null;
+    const hasContent = Object.values(d.answers).some(v => String(v || '').trim());
+    return hasContent ? d : null;
+  } catch (_) { return null; }
+}
+
+function clearDraft() {
+  try { localStorage.removeItem(STORAGE_KEY); } catch (_) {}
+}
+
+function fillFields() {
+  ALL_QUESTIONS.forEach(q => {
+    const el = $('f-' + q.id);
+    if (!el) return;
+    el.value = answers[q.id] || '';
+    autoGrow(el);
+  });
+}
+
+/* =========================================================================
+   導覽
+   ========================================================================= */
+function validateStep(si) {
+  let firstBad = null;
+  SECTIONS[si].questions.forEach(q => {
+    if (!q.required) return;
+    const val = String(answers[q.id] || '').trim();
+    const box = document.querySelector('.q[data-qid="' + q.id + '"]');
+    if (!val) {
+      box?.classList.add('invalid');
+      if (!firstBad) firstBad = q.id;
+    } else {
+      box?.classList.remove('invalid');
+    }
+  });
+  if (firstBad) { $('f-' + firstBad)?.focus(); return false; }
+  return true;
+}
+
+function goTo(n) {
+  step = Math.max(-1, Math.min(TOTAL_STEPS, n));
+
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  if (step === -1) {
+    $('screen-intro').classList.add('active');
+  } else if (step === TOTAL_STEPS) {
+    renderOutput();
+    $('screen-done').classList.add('active');
+  } else {
+    $('screen-' + step).classList.add('active');
+    // 進到這一段時才量 textarea 高度——隱藏中的元素 scrollHeight 量不準
+    SECTIONS[step].questions.forEach(q => autoGrow($('f-' + q.id)));
+  }
+
+  const showBar = step >= 0 && step < TOTAL_STEPS;
+  $('progressShell').hidden = !showBar;
+  if (showBar) {
+    $('progressFill').style.width = ((step + 1) / TOTAL_STEPS * 100) + '%';
+    $('progressLabel').textContent =
+      SECTIONS[step].title + '　·　第 ' + (step + 1) + ' / ' + TOTAL_STEPS + ' 段';
+  }
+
+  window.scrollTo(0, 0);
+  saveDraft();
+}
+
+/* =========================================================================
+   產生輸出
+   ========================================================================= */
+function buildMarkdown() {
+  const who = String(answers.name || '').trim() || '（未填名字）';
+  const now = new Date();
+  const stamp = now.getFullYear() + '-' +
+    String(now.getMonth() + 1).padStart(2, '0') + '-' +
+    String(now.getDate()).padStart(2, '0');
+
+  const lines = [];
+  lines.push('# Pitch a Friend 素材表：' + who);
+  lines.push('填寫日期：' + stamp);
+  lines.push('');
+
+  SECTIONS.forEach((sec, si) => {
+    const filled = sec.questions.filter(q => String(answers[q.id] || '').trim());
+    if (!filled.length) return;
+    lines.push('## ' + (si + 1) + '. ' + sec.title);
+    lines.push('');
+    filled.forEach(q => {
+      lines.push('**Q：' + q.label + '**');
+      lines.push(String(answers[q.id]).trim());
+      lines.push('');
+    });
+  });
+
+  const skipped = ALL_QUESTIONS.filter(q => !String(answers[q.id] || '').trim()).length;
+  if (skipped) {
+    lines.push('---');
+    lines.push('（跳過了 ' + skipped + ' 題）');
+  }
+
+  return lines.join('\n').trim() + '\n';
+}
+
+function renderOutput() {
+  const md = buildMarkdown();
+  $('preview').textContent = md;
+
+  const who = String(answers.name || '').trim() || '朋友';
+  const subject = 'Pitch a Friend 素材表 — ' + who;
+  $('btnMail').href = 'mailto:' + RECIPIENT_EMAIL +
+    '?subject=' + encodeURIComponent(subject) +
+    '&body=' + encodeURIComponent(md);
+}
+
+/* =========================================================================
+   三個出口：複製 / 下載 / mailto
+   ========================================================================= */
+function toast(msg) {
+  const t = $('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toast._timer);
+  toast._timer = setTimeout(() => t.classList.remove('show'), 2600);
+}
+
+function legacyCopy(text) {
+  // iOS Safari 在 file:// 或非 https 下會擋 clipboard API，退回這條路
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.setAttribute('readonly', '');
+  ta.style.position = 'fixed';
+  ta.style.top = '0';
+  ta.style.left = '0';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.focus();
+  ta.select();
+  ta.setSelectionRange(0, text.length);
+  let ok = false;
+  try { ok = document.execCommand('copy'); } catch (_) { ok = false; }
+  document.body.removeChild(ta);
+  return ok;
+}
+
+async function copyAll() {
+  const md = buildMarkdown();
+  if (navigator.clipboard && window.isSecureContext) {
+    try {
+      await navigator.clipboard.writeText(md);
+      toast('已複製，貼給 ' + RECIPIENT_NAME + ' 就完成了 ✓');
+      return;
+    } catch (_) { /* 掉到下面的備援 */ }
+  }
+  if (legacyCopy(md)) {
+    toast('已複製，貼給 ' + RECIPIENT_NAME + ' 就完成了 ✓');
+  } else {
+    toast('複製失敗，請改用下載，或長按下方內容手動選取');
+  }
+}
+
+function downloadTxt() {
+  const md = buildMarkdown();
+  const who = String(answers.name || '').trim().replace(/[\\/:*?"<>|\s]+/g, '-') || 'friend';
+  const blob = new Blob([md], { type: 'text/plain;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'pitch-a-friend-' + who + '.txt';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+  toast('已下載，把這個檔傳給 ' + RECIPIENT_NAME + ' 就好');
+}
+
+/* =========================================================================
+   啟動
+   ========================================================================= */
+buildSections();
+document.addEventListener('input', onInput);
+
+const draft = loadDraft();
+if (draft) {
+  $('resumeBox').hidden = false;
+  $('btnStart').textContent = '從頭開始填 →';
+}
+
+$('btnStart').addEventListener('click', () => {
+  if (loadDraft()) { answers = {}; clearDraft(); fillFields(); }
+  goTo(0);
+});
+
+$('btnResume').addEventListener('click', () => {
+  const d = loadDraft();
+  if (!d) { goTo(0); return; }
+  answers = d.answers;
+  fillFields();
+  const resumeAt = Number.isInteger(d.step) ? d.step : 0;
+  goTo(Math.max(0, Math.min(TOTAL_STEPS, resumeAt)));
+});
+
+$('btnRestart').addEventListener('click', () => {
+  if (!confirm('上次填的內容會全部刪掉，確定要重新開始嗎？')) return;
+  answers = {};
+  clearDraft();
+  fillFields();
+  $('resumeBox').hidden = true;
+  goTo(0);
+});
+
+$('btnCopy').addEventListener('click', copyAll);
+$('btnDownload').addEventListener('click', downloadTxt);
+$('btnBackEdit').addEventListener('click', () => goTo(TOTAL_STEPS - 1));
+
+$('btnClear').addEventListener('click', () => {
+  if (!confirm('會刪掉這台裝置上存的所有答案，而且救不回來。確定嗎？')) return;
+  answers = {};
+  clearDraft();
+  fillFields();
+  $('resumeBox').hidden = true;
+  goTo(-1);
+  toast('已清除');
+});
+</script>
+</body>
+</html>
